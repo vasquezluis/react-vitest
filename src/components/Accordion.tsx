@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 
 // escribir esto por ser typescript
 type AccordionProps = {
@@ -7,10 +7,22 @@ type AccordionProps = {
 };
 
 function Accordion({ title, children }: AccordionProps) {
+  // estado para corregir el test de contenido null al principio
+  const [open, setOpen] = useState(false);
+
   return (
     <div>
-      <h3>{title}</h3>
-      <div>{children}</div>
+      <div>
+        <h3>{title}</h3>
+        <button
+          onClick={() => {
+            setOpen(!open);
+          }}
+        >
+          {open ? "Close" : "Open"}
+        </button>
+      </div>
+      {open && <div>{children}</div>}
     </div>
   );
 }
